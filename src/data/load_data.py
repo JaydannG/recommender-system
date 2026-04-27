@@ -1,0 +1,26 @@
+from pathlib import Path
+import pandas as pd
+
+RAW_DATA_DIR = Path("data/raw/ml-1m")
+
+def load_ratings() -> pd.DataFrame:
+    ratings = pd.read_csv(
+        RAW_DATA_DIR / "ratings.dat",
+        sep="::",
+        engine="python",
+        names=["user_id", "movie_id", "rating", "timestamp"],
+        encoding="latin-1",
+    )
+
+    ratings["timestamp"] = pd.to_datetime(ratings["timestamp"], unit="s")
+
+    return ratings
+
+def load_movies() -> pd.DataFrame:
+    movies = pd.read_csv(
+        RAW_DATA_DIR / "movies.dat",
+        sep="::",
+        engine="python",
+        names=["movie_id", "title", "genres"],
+        encoding="latin-1",
+    )
