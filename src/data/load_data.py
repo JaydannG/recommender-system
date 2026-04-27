@@ -24,3 +24,18 @@ def load_movies() -> pd.DataFrame:
         names=["movie_id", "title", "genres"],
         encoding="latin-1",
     )
+
+    movies["genres"] = movies["genres"].str.split("|")
+
+    return movies
+
+def load_users() -> pd.DataFrame:
+    users = pd.read_csv(
+        RAW_DATA_DIR / "users.dat",
+        sep="::",
+        engine="python",
+        names=["user_id", "gender", "age", "occupation", "zip_code"],
+        encoding="latin-1",
+    )
+
+    return users
