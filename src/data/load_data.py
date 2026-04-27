@@ -39,3 +39,10 @@ def load_users() -> pd.DataFrame:
     )
 
     return users
+
+def load_all_data():
+    ratings = load_ratings()
+    movies = load_movies()
+    users = load_users()
+
+    return ratings, movies, users
