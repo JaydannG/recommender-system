@@ -1,7 +1,9 @@
 from pathlib import Path
 import pandas as pd
 
-RAW_DATA_DIR = Path("data/raw/ml-1m")
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+RAW_DATA_DIR = BASE_DIR / "data" / "raw" / "ml-1m" 
 
 def load_ratings() -> pd.DataFrame:
     ratings = pd.read_csv(
