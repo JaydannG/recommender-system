@@ -1,9 +1,28 @@
 import pandas as pd
+import numpy as np
 
 class PopularityRecommender:
-    def __init__(self, min_ratings: int = 50):
-        self.min_rating = min_ratings
+    def __init__(self, min_ratings: int = 50, method: str = "simple"):
+        self.min_ratings = min_ratings
+        self.method = method
         self.movie_scores = None
+
+    def _compute_score(self, df: pd.DataFrame):
+        if self.method == "simple":
+            return df["avg_rating"] * (
+                df["num_ratings"] / df["num_ratings"].max()
+            )
+        elif self.method == "log":
+            return df["avg_rating"] * np.log1p(df["num_ratings"])
+        elif self.method == "bayesian":
+            C = df["avg_rating"].mean()
+            m = self.min_ratings
+            v = df["num_ratings"]
+            R = df["avg_rating"]
+
+            return (v / (v + m)) * R + (m / (v + m)) * C
+        else:
+            raise ValueError(f"Unknown method: {self.method}")
 
     def fit(self, ratings: pd.DataFrame):
         movie_stats = (
@@ -15,11 +34,9 @@ class PopularityRecommender:
             .reset_index()
         )
 
-        movie_stats = movie_stats[movie_stats["num_ratings"] >= self.min_rating]
+        movie_stats = movie_stats[movie_stats["num_ratings"] >= self.min_ratings]
 
-        movie_stats["score"] = movie_stats["avg_rating"] * (
-            movie_stats["num_ratings"] / movie_stats["num_ratings"].max()
-        )
+        movie_stats["score"] = self._compute_score(movie_stats)
 
         self.movie_scores = movie_stats.sort_values(by="score", ascending=False)
 
