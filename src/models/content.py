@@ -28,9 +28,12 @@ class ContentRecommender:
         user_profile = self._build_user_profile(user_id, ratings)
 
         if user_profile is None:
-            return pd.DataFrame()
+            return pd.DataFrame(columns=["movie_id", "score"])
 
         scores = self.movie_features.dot(user_profile)
+
+        if scores.empty:
+            return pd.DataFrame(columns=["movie_id", "score"])
 
         seen_movies = set(ratings[ratings["user_id"] == user_id]["movie_id"])
         scores = scores[~scores.index.isin(seen_movies)]
