@@ -2,7 +2,7 @@ import pandas as pd
 
 from src.evaluation.metrics import precision_at_k, recall_at_k, ndcg_at_k
 
-def evaluate_precision_at_k(model, train_df: pd.DataFrame, test_df: pd.DataFrame, k: int = 10):
+def evaluate_model(model, train_df: pd.DataFrame, test_df: pd.DataFrame, k: int = 10):
     precision_scores = []
     recall_scores = []
     ndcg_scores = []
