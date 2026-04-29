@@ -15,6 +15,6 @@ def build_genre_matrix(movies: pd.DataFrame):
         genre_matrix.append(vector)
 
     genre_df = pd.DataFrame(genre_matrix, columns=all_genres)
-    genre_df["movieId"] = movies["movieId"].values
+    genre_df["movie_id"] = movies["movie_id"].values
 
     return genre_df
