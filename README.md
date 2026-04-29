@@ -135,3 +135,6 @@ Place files in:`data/raw/ml-1m`
 - Implement matrix factorization (ALS / neural CF)
 - Learn hybrid weights via a ranking model
 - Deploy the system (API + hosted frontend)
+
+## App Preview
+![App preview screenshot](./images/app_preview.png)
