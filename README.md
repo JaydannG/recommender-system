@@ -94,6 +94,7 @@ streamlit run app/streamlit_app.py
 
 ## Project Structure
 
+```
 recommender-system/
 │
 ├── src/
@@ -107,6 +108,7 @@ recommender-system/
 ├── data/
 ├── requirements.txt
 └── README.md
+```
 
 ## Setup
 
